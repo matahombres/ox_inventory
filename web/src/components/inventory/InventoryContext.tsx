@@ -8,9 +8,10 @@ import { isSlotWithItem } from '../../helpers';
 import { setClipboard } from '../../utils/setClipboard';
 import { Divider, Menu, MenuItem } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '../../store';
-import { setContextMenu } from '../../store/inventory';
+import { openModal, setContextMenu } from '../../store/inventory';
 import React from 'react';
 import { NestedMenuItem } from 'mui-nested-menu';
+import { onSplit } from '../../dnd/onSplit';
 
 interface DataProps {
   action: string;
@@ -63,6 +64,13 @@ const InventoryContext: React.FC = () => {
       case 'removeAmmo':
         fetchNui('removeAmmo', item.slot);
         break;
+      case 'split':
+        dispatch(openModal({ cb: (value?:number)=>{
+          if(value!= null){
+            isSlotWithItem(item) && onSplit({ item: item, inventory: 'player', amount: value });
+          }
+        }}))
+        break;
       case 'copy':
         setClipboard(data.serial || '');
         break;
@@ -112,6 +120,9 @@ const InventoryContext: React.FC = () => {
         <MenuItem onClick={() => handleClick({ action: 'use' })}>{Locale.ui_use || 'Use'}</MenuItem>
         <MenuItem onClick={() => handleClick({ action: 'give' })}>{Locale.ui_give || 'Give'}</MenuItem>
         <MenuItem onClick={() => handleClick({ action: 'drop' })}>{Locale.ui_drop || 'Drop'}</MenuItem>
+        {item && item.count && item.count > 1 && (
+          <MenuItem onClick={() => handleClick({ action: 'split' })}>{Locale.ui_split || 'Dividir'}</MenuItem>
+        )}
         {item && item.metadata?.serial && <Divider />}
         {item && item.metadata?.ammo > 0 && (
           <MenuItem onClick={() => handleClick({ action: 'removeAmmo' })}>{Locale.ui_remove_ammo}</MenuItem>

@@ -5,6 +5,7 @@ import InventorySlot from './InventorySlot';
 import InventoryContext from './InventoryContext';
 import { getTotalWeight } from '../../helpers';
 import { createPortal } from 'react-dom';
+import InventoryDialogAmount from './InventoryDialogAmount';
 
 const InventoryGrid: React.FC<{ inventory: Inventory }> = ({ inventory }) => {
   const weight = React.useMemo(
@@ -32,6 +33,7 @@ const InventoryGrid: React.FC<{ inventory: Inventory }> = ({ inventory }) => {
               <InventorySlot key={`${inventory.type}-${inventory.id}-${item.slot}`} item={item} inventory={inventory} />
             ))}
             {inventory.type === 'player' && createPortal(<InventoryContext />, document.body)}
+            {inventory.type === 'player' && createPortal(<InventoryDialogAmount />, document.body)}
           </>
         </div>
       </div>

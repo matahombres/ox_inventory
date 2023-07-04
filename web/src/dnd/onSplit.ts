@@ -1,14 +1,14 @@
 import { isSlotWithItem, findAvailableSlot, getTargetInventory, canStack } from '../helpers';
 import { validateMove } from '../thunks/validateItems';
 import { store } from '../store';
-import { DragSource, DropTarget, InventoryType, SlotWithItem } from '../typings';
+import { SlotWithItem, SplitSource } from '../typings';
 import { moveSlots, stackSlots, swapSlots } from '../store/inventory';
 import { Items } from '../store/items';
 
-export const onDrop = (source: DragSource, target?: DropTarget) => {
+export const onSplit = (source: SplitSource) => {
   const { inventory: state } = store.getState();
 
-  const { sourceInventory, targetInventory } = getTargetInventory(state, source.inventory, target?.inventory);
+  const { sourceInventory } = getTargetInventory(state, source.inventory);
 
   const sourceSlot = sourceInventory.items[source.item.slot - 1] as SlotWithItem;
 
@@ -18,18 +18,12 @@ export const onDrop = (source: DragSource, target?: DropTarget) => {
 
   // If dragging from container slot
   if (sourceSlot.metadata?.container !== undefined) {
-    // Prevent storing container in container
-    if (targetInventory.type === InventoryType.CONTAINER)
-      return console.log(`Cannot store container ${sourceSlot.name} inside another container`);
-
     // Prevent dragging of container slot when opened
     if (state.rightInventory.id === sourceSlot.metadata.container)
       return console.log(`Cannot move container ${sourceSlot.name} when opened`);
   }
 
-  const targetSlot = target
-    ? targetInventory.items[target.item.slot - 1]
-    : findAvailableSlot(sourceSlot, sourceData, targetInventory.items);
+  const targetSlot = sourceInventory.items.find((target) => target.name === undefined);
 
   if (targetSlot === undefined) return console.error('Target slot undefined!');
 
@@ -43,13 +37,13 @@ export const onDrop = (source: DragSource, target?: DropTarget) => {
       : state.itemAmount === 0 || state.itemAmount > sourceSlot.count
       ? sourceSlot.count
       : state.itemAmount;*/
-  const count = sourceSlot.count;
+  const count = source.amount <= 0 ? 1 : source.amount;
 
   const data = {
     fromSlot: sourceSlot,
     toSlot: targetSlot,
     fromType: sourceInventory.type,
-    toType: targetInventory.type,
+    toType: sourceInventory.type,
     count: count,
   };
 

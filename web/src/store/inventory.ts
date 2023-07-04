@@ -26,6 +26,7 @@ const initialState: State = {
   },
   additionalMetadata: {},
   contextMenu: { coords: null },
+  modalInput: { cb: null },
   itemAmount: 0,
   shiftPressed: false,
   isBusy: false,
@@ -40,6 +41,12 @@ export const inventorySlice = createSlice({
     setupInventory: setupInventoryReducer,
     moveSlots: moveSlotsReducer,
     refreshSlots: refreshSlotsReducer,
+    openModal: (
+      state,
+      action: PayloadAction<{ cb: ((value?: number)=>void) | null; }>
+    ) => {
+      state.modalInput = action.payload;
+    },
     setContextMenu: (
       state,
       action: PayloadAction<{ coords: { mouseX: number; mouseY: number } | null; item?: Slot }>
@@ -91,6 +98,7 @@ export const {
   setItemAmount,
   setShiftPressed,
   setupInventory,
+  openModal,
   swapSlots,
   moveSlots,
   stackSlots,

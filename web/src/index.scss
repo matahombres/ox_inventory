@@ -471,3 +471,17 @@ button:active {
   border-radius: 5%;
   overflow: hidden;
 }
+
+// Modal
+.MuiDialog-root.MuiModal-root{
+  width: calc(5 * 10.42vh + 5 * 6px );
+  left: initial;
+}
+.MuiBackdrop-root.MuiModal-backdrop{
+  width: calc(5 * 10.42vh + 5 * 6px + 2em );
+  left: initial;
+}
+.MuiPaper-root.MuiDialog-paper{
+  padding: 1em;
+  background: #22232c;
+}

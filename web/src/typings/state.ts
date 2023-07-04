@@ -9,6 +9,7 @@ export type State = {
   isBusy: boolean;
   additionalMetadata: { [key: string]: any };
   contextMenu: { coords: { mouseX: number; mouseY: number } | null; item?: Slot };
+  modalInput: { cb: ((value?: number)=>void) | null };
   history?: {
     leftInventory: Inventory;
     rightInventory: Inventory;
