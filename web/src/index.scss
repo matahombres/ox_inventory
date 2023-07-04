@@ -10,7 +10,8 @@ $gridCols: 5;
 $gridRows: 5;
 $gridSize: 10.2vh;
 $gridGap: 2px;
-$containerSize: calc(#{$gridRows} * #{$gridSize + 0.22vh} + #{$gridRows} * #{$gridGap});
+$primaryContainerSize: calc(4 * #{$gridSize + 0.22vh} + #{$gridSize}/2);
+$containerSize: calc(2 * #{$gridSize + 0.22vh} + #{$gridSize}/2);
 
 body {
   margin: 0;
@@ -97,16 +98,22 @@ button:active {
 
 .inventory-wrapper {
   display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column-reverse;
+  justify-content: end;
+  align-items: end;
   height: 100%;
 
   gap: 20px;
 }
 
+.MuiBox-root{
+  height: calc(100% - 4em) !important;
+  width: calc(100% - 4em) !important;
+  padding: 2em !important;
+}
+
 .inventory-control {
-  display: flex;
+  display: none;
 
   .inventory-control-wrapper {
     display: flex;
@@ -161,6 +168,7 @@ button:active {
 }
 
 .useful-controls-button {
+  display: none !important;
   position: absolute !important;
   bottom: 25px;
   right: 25px;
@@ -201,6 +209,13 @@ button:active {
   display: flex;
   flex-direction: column;
   gap: calc($gridGap * 2);
+  &:first-child .inventory-grid-container{
+    height: $primaryContainerSize;
+  }
+  &:last-child .inventory-grid-container{
+    height: initial;
+    max-height: $containerSize;
+  }
 }
 .inventory-grid-header-wrapper {
   display: flex;
