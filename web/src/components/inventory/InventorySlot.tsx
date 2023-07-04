@@ -122,6 +122,14 @@ const InventorySlot: React.FC<SlotProps> = ({ inventory, item }) => {
       onUse(item);
     }
   };
+  const mouseDownHandler = (event: React.MouseEvent<HTMLDivElement>) => {
+    if (isBusy) return;
+    
+    if (event.button == 1 && isSlotWithItem(item) && inventory.type === 'player') {
+      event.preventDefault();
+      onUse(item);
+    }
+  };
 
   return (
     <Tooltip
@@ -139,6 +147,7 @@ const InventorySlot: React.FC<SlotProps> = ({ inventory, item }) => {
         ref={connectRef}
         onContextMenu={handleContext}
         onClick={handleClick}
+        onMouseDown={mouseDownHandler}
         className="inventory-slot"
         style={{
           filter:

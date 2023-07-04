@@ -11,6 +11,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Locale } from '../../store/locale';
 import { IconButton } from '@mui/material';
 import UsefulControls from './UsefulControls';
+import { getItemUrl } from '../../helpers';
 
 const InventoryControl: React.FC = () => {
   const itemAmount = useAppSelector(selectItemAmount);
@@ -59,6 +60,21 @@ const InventoryControl: React.FC = () => {
       <IconButton className="useful-controls-button" size="large" onClick={() => setInfoVisible(true)}>
         <FontAwesomeIcon icon={faInfoCircle} />
       </IconButton>
+
+      <div className='help-buttons-container'>
+        <div className='help-button'>
+          <img src={getItemUrl('click_left')} />
+          <span className='label-help'>{Locale.ui_move || 'Mover'}</span>
+        </div>
+        <div className='help-button'>
+          <img src={getItemUrl('click_center')} />
+          <span className='label-help'>{Locale.ui_use || 'Use'}</span>
+        </div>
+        <div className='help-button'>
+          <img src={getItemUrl('click_right')} />
+          <span className='label-help'>{Locale.ui_open_context || 'Acciones'}</span>
+        </div>
+      </div>
     </>
   );
 };
