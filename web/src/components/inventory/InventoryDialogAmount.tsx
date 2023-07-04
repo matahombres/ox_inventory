@@ -18,10 +18,16 @@ const InventoryDialogAmount: React.FC = () => {
       };
       
     const handleClose = () => {
-        dispatch(openModal({ cb: null }));
         if(modalInput.cb != null){
             modalInput.cb(amount);
         }
+        dispatch(openModal({ cb: null }));
+    };
+    const handleCancel = () => {
+        if(modalInput.cb != null){
+            modalInput.cb(undefined);
+        }
+        dispatch(openModal({ cb: null }));
     };
     
 
@@ -34,7 +40,7 @@ const InventoryDialogAmount: React.FC = () => {
                 <DialogTitle>{Locale.ui_amount || 'Cantidad'}</DialogTitle>
                 <TextField type="number" autoFocus defaultValue="1" onChange={inputHandler} />
                 <DialogActions>
-                    <Button onClick={handleClose}>{Locale.ui_cancel || 'Cancelar'}</Button>
+                    <Button onClick={handleCancel}>{Locale.ui_cancel || 'Cancelar'}</Button>
                     <Button onClick={handleClose}>{Locale.ui_confirm || 'Confirmar'}</Button>
                 </DialogActions>
             </Dialog>
