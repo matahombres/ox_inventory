@@ -150,15 +150,22 @@ const InventorySlot: React.FC<SlotProps> = ({ inventory, item }) => {
         onMouseDown={mouseDownHandler}
         className="inventory-slot"
         style={{
-          filter:
+          opacity: isDragging ? 0.4 : 1.0,
+          backgroundImage: `url(${getItemUrl('border-ciber')})`
+          //border: isOver ? '1px dashed rgba(255,255,255,0.4)' : '',
+        }}
+      >
+        <div 
+          className="inventory-slot-image"
+          style={{
+            filter:
             !canPurchaseItem(item, inventory) || !canCraftItem(item, inventory.type)
               ? 'brightness(80%) grayscale(100%)'
               : undefined,
-          opacity: isDragging ? 0.4 : 1.0,
-          backgroundImage: `url(${item?.name ? getItemUrl(item as SlotWithItem) : 'none'}`,
-          border: isOver ? '1px dashed rgba(255,255,255,0.4)' : '',
-        }}
-      >
+            backgroundImage: `url(${item?.name ? getItemUrl(item as SlotWithItem) : 'none'}`,
+          }}
+        >
+        </div>
         {isSlotWithItem(item) && (
           <div className="item-slot-wrapper">
             <div

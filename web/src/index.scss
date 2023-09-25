@@ -1,6 +1,14 @@
 $mainColor: #22232c;
 $textColor: #c1c2c5;
-$mainFont: Roboto;
+$mainFont: Rajdhani;
+
+
+$cyber-blue: #2abdc7;
+$cyber-blue-opacity: #2abcc779;
+$cyber-blue-opacity-2: #2abcc75d;
+
+$cyber-red: #ff4e46;
+$cyber-red-opacity: #ff4e4679;
 
 $seconaryColor: rgba(12, 12, 12, 0.4);
 $secondaryColorLight: rgba(0, 0, 0, 0.5);
@@ -216,7 +224,8 @@ button:active {
     text-transform: uppercase;
     gap: 5px;
     font-size: 13px;
-    color: black;
+    color: $cyber-red;
+    text-shadow: -1.5px 1.5px 3px $cyber-red-opacity;
     font-weight: 600;
     img{
       width: 32px;
@@ -243,7 +252,9 @@ button:active {
   flex-direction: row;
   justify-content: space-between;
   p {
-    font-size: 16px;
+    font-size: 18px;
+    color: $cyber-blue;
+    text-shadow: -1.5px 1.5px 3px $cyber-blue-opacity;
   }
 }
 
@@ -258,9 +269,6 @@ button:active {
 
 // inventory slots
 .inventory-slot {
-  background-color: $seconaryColor;
-  background-repeat: no-repeat;
-  background-position: center;
   border-radius: 2.5%;
   image-rendering: -webkit-optimize-contrast;
   position: relative;
@@ -269,17 +277,30 @@ button:active {
   border-color: rgba(0, 0, 0, 0.2);
   border-style: inset;
   border-width: 1px;
+  background-size: contain;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+.inventory-slot-image{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  pointer-events: none;
+  background-color: $seconaryColor;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .inventory-slot-label-box {
-  background-color: $mainColor;
-  color: $textColor;
+  background: transparent;
   text-align: center;
   border-bottom-left-radius: 0.25vh;
   border-bottom-right-radius: 0.25vh;
   border-top-color: rgba(0, 0, 0, 0.2);
   border-top-style: inset;
-  border-top-width: 1px;
+  border-top-width: 0px;
+  color: $cyber-red;
+  text-shadow: -1.5px 1.5px 3px $cyber-red-opacity;
 }
 
 .inventory-slot-label-text {
@@ -294,7 +315,6 @@ button:active {
 }
 
 .inventory-slot-number {
-  background-color: white;
   color: black;
   height: 12px;
   border-top-left-radius: 0.25vh;
@@ -302,6 +322,9 @@ button:active {
   padding: 3px;
   font-size: 12px;
   font-family: $mainFont;
+  background-color: black;
+  color: $cyber-red;
+  text-shadow: -1.5px 1.5px 3px $cyber-red-opacity;
 }
 
 .item-slot-wrapper {
@@ -309,6 +332,8 @@ button:active {
   flex-direction: column;
   justify-content: space-between;
   height: 100%;
+  z-index: 2;
+  position: relative;
   p {
     font-size: 12px;
   }
@@ -333,6 +358,8 @@ button:active {
   gap: 3px;
   p {
     font-size: 12px;
+    color: $cyber-blue;
+    text-shadow: -1.5px 1.5px 3px $cyber-blue-opacity;
   }
 }
 
@@ -486,11 +513,12 @@ button:active {
 }
 
 .weight-bar {
-  background: rgba(0, 0, 0, 0.4);
   border: 1px inset rgba(0, 0, 0, 0.1);
   height: 0.8vh;
   border-radius: 5%;
-  overflow: hidden;
+  border-color: transparent;
+  border-bottom: 2px solid rgba(212, 69, 61, 0.8);
+  margin-bottom: 5px;
 }
 
 // Modal

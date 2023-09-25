@@ -78,7 +78,8 @@ end
 
 local defaultInventory = {
 	type = 'newdrop',
-	slots = shared.playerslots,
+	label = 'Suelo',
+	slots = 5,
 	weight = 0,
 	maxWeight = shared.playerweight,
 	items = {}
