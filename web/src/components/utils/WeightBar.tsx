@@ -20,7 +20,7 @@ const COLORS = {
   accentColor: [211, 84, 0], // Orange (Oragne)
 };
 
-const WeightBar: React.FC<{ percent: number; durability?: boolean }> = ({ percent, durability }) => {
+const WeightBar: React.FC<{ percent: number; durability?: boolean; middleBar?: boolean }> = ({ percent, durability, middleBar }) => {
   const color = React.useMemo(
     () =>
       durability
@@ -42,9 +42,9 @@ const WeightBar: React.FC<{ percent: number; durability?: boolean }> = ({ percen
           width: `${percent}%`,
           transition: `background ${0.3}s ease, width ${0.3}s ease`,
           position: 'relative',
-          backgroundColor: 'rgba(212, 69, 61, 0.8)',
-          top: '5px',
-          boxShadow: '-3px 2px 7px 1px rgba(215,73,78,1)'
+          backgroundColor: '#ff4e46',
+          top: `${middleBar?'5px':'0px'}`,
+          boxShadow: '-3px 2px 7px 1px #ff4e4679'
         }}
       ></div>
     </div>
